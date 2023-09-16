@@ -10,18 +10,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model warehouse {
-  id          Int    @id @default(autoincrement())
+model Warehouse {
+  id          Int     @id @default(autoincrement())
   name        String
-  description String
+  description String?
+
+  Products Products[]
 }
 
-model products {
+model Products {
   id          Int      @id @default(autoincrement())
   date        DateTime @default(now())
   name        String
-  description String
+  description String?
   quantity    Float
   buyPrice    Float
   sellPrice   Float
+
+  Warehouse   Warehouse? @relation(fields: [warehouseId], references: [id])
+  warehouseId Int?
 }
