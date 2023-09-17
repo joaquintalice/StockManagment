@@ -1,7 +1,13 @@
 # compiled output
 /dist
 /node_modules
+
+# local
 .env
+docker.env
+docker-compose.yaml
+
+
 # Logs
 logs
 *.log
