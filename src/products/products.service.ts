@@ -10,7 +10,7 @@ export class ProductsService {
 
     async create(createProductDto: CreateProductDto) {
         try {
-            const { name, sellPrice, buyPrice, quantity, warehouseId, description } = createProductDto
+            const { name, sellPrice, buyPrice, quantity, warehouseId, description } = createProductDto;
             const product = await this.prismaService.products.create({
                 data: {
                     name,
@@ -20,10 +20,10 @@ export class ProductsService {
                     sellPrice,
                     warehouseId
                 }
-            })
-            return product
+            });
+            return product;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
@@ -31,9 +31,9 @@ export class ProductsService {
         try {
             const products = await this.prismaService.products.findMany();
             if (!products || products.length < 1) throw new NotFoundException(`There's not products.`);
-            return products
+            return products;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
@@ -41,15 +41,15 @@ export class ProductsService {
         try {
             const product = await this.prismaService.products.findUnique({ where: { id: id } });
             if (!product) throw new NotFoundException(`Product with id ${id} not found.`);
-            return product
+            return product;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
     async update(id: number, updateProductDto: UpdateProductDto) {
         try {
-            const { name, quantity, description, buyPrice, sellPrice, warehouseId } = updateProductDto
+            const { name, quantity, description, buyPrice, sellPrice, warehouseId } = updateProductDto;
             const product = await this.prismaService.products.update({
                 where: { id: id },
                 data: {
@@ -61,9 +61,9 @@ export class ProductsService {
                     warehouseId
                 }
             });
-            return product
+            return product;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
@@ -71,9 +71,9 @@ export class ProductsService {
         try {
             const product = await this.prismaService.products.delete({ where: { id: id } });
             if (!product) throw new NotFoundException(`Product with id: ${id} not found.`)
-            return product
+            return product;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 

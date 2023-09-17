@@ -11,7 +11,7 @@ export class WarehouseService {
 
     async create(createWarehouseDto: CreateWarehouseDto) {
         try {
-            const { name, description, ubication } = createWarehouseDto
+            const { name, description, ubication } = createWarehouseDto;
             const warehouse = await this.prismaService.warehouse.create({
                 data: {
                     name,
@@ -19,8 +19,8 @@ export class WarehouseService {
                     ubication
                 }
             }
-            )
-            return warehouse
+            );
+            return warehouse;
         } catch (error) {
             console.log(error)
         }
@@ -30,10 +30,10 @@ export class WarehouseService {
     async getAll() {
         try {
             const warehouses = await this.prismaService.warehouse.findMany();
-            if (!warehouses || warehouses.length < 1) throw new NotFoundException(`Warehouse not found`)
-            return warehouses
+            if (!warehouses || warehouses.length < 1) throw new NotFoundException(`Warehouse not found`);
+            return warehouses;
         } catch (error) {
-            console.log(error)
+            console.log(error);
             throw new NotFoundException(`Warehouses not found`);
         }
     }
@@ -42,11 +42,11 @@ export class WarehouseService {
     async getById(id: number) {
         try {
             const warehouse = await this.prismaService.warehouse.findUnique({ where: { id: id } });
-            if (!warehouse) throw new NotFoundException(`Warehouse with id ${id} not found.`)
-            return warehouse
+            if (!warehouse) throw new NotFoundException(`Warehouse with id ${id} not found.`);
+            return warehouse;
         } catch (error) {
-            console.log(error)
-            throw new NotFoundException(`Warehouse with id ${id} not found`)
+            console.log(error);
+            throw new NotFoundException(`Warehouse with id ${id} not found`);
         }
     }
 
@@ -63,10 +63,10 @@ export class WarehouseService {
                 }
             });
 
-            return updateWarehouse
+            return updateWarehouse;
         } catch (error) {
-            console.log(error)
-            throw new NotFoundException(`Warehouse with id ${id} not found`)
+            console.log(error);
+            throw new NotFoundException(`Warehouse with id ${id} not found`);
         }
     }
 
@@ -74,12 +74,12 @@ export class WarehouseService {
     async delete(id: number) {
         try {
             const warehouse = await this.prismaService.warehouse.delete({ where: { id: id } });
-            return warehouse
+            return warehouse;
         } catch (error) {
-            console.log(error)
+            console.log(error);
             switch (error instanceof Prisma.PrismaClientKnownRequestError) {
                 case error.code === 'P2025': {
-                    throw new NotFoundException(`Record to delete does not exist.`)
+                    throw new NotFoundException(`Record to delete does not exist.`);
                 }
             }
         }
