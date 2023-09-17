@@ -14,11 +14,11 @@ export default class CreateProductDto {
     @IsNotEmpty()
     quantity: number;
 
-    @IsDecimal() // Change to @IsNumber() if there's problems
+    @IsNumber() // Change to @IsNumber() if there's problems
     @IsNotEmpty()
     buyPrice: number;
 
-    @IsDecimal() // Change to @IsNumber() if there's problems
+    @IsNumber() // Change to @IsNumber() if there's problems
     @IsNotEmpty()
     sellPrice: number;
 
