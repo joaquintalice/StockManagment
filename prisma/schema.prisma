@@ -28,6 +28,35 @@ model Products {
   buyPrice    Float
   sellPrice   Float
 
-  Warehouse   Warehouse? @relation(fields: [warehouseId], references: [id])
-  warehouseId Int?
+  Warehouse             Warehouse?           @relation(fields: [warehouseId], references: [id])
+  warehouseId           Int?
+  StockMovementDetail   StockMovementDetail? @relation(fields: [stockMovementDetailId], references: [id])
+  stockMovementDetailId Int?
+}
+
+model StockMovement {
+  id    Int      @id @default(autoincrement())
+  date  DateTime @default(now())
+  total Float
+
+  stockMovementDetail StockMovementDetail[]
+  CashBox             CashBox?              @relation(fields: [cashBoxId], references: [id])
+  cashBoxId           Int?
+}
+
+model StockMovementDetail {
+  id              Int  @id @default(autoincrement())
+  stockMovementId Int?
+
+  articles      Products[]
+  StockMovement StockMovement? @relation(fields: [stockMovementId], references: [id])
+}
+
+model CashBox {
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  amount      Float
+  description String
+
+  StockMovement StockMovement[]
 }
