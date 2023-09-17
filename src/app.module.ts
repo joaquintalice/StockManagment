@@ -5,12 +5,7 @@ import { ProductsModule } from './products/products.module';
 import { PrismaService } from './db/prisma.service';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    WarehouseModule,
-    ProductsModule,
-
-  ],
+  imports: [ConfigModule.forRoot(), WarehouseModule, ProductsModule],
   controllers: [],
   providers: [PrismaService],
 })

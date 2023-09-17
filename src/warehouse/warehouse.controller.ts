@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { WarehouseService } from './warehouse.service';
 import CreateWarehouseDto from './dto/createWarehouse.dto';
 import { UpdateWarehouseDto } from './dto/updateWarehouse.dto';
@@ -14,16 +23,19 @@ export class WarehouseController {
 
   @Get()
   getAll() {
-    return this.warehouseService.getAll()
+    return this.warehouseService.getAll();
   }
 
   @Get('/:id')
   getById(@Param('id', ParseIntPipe) id: number) {
-    return this.warehouseService.getById(id)
+    return this.warehouseService.getById(id);
   }
 
   @Patch('/:id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateWarehouseDto: UpdateWarehouseDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateWarehouseDto: UpdateWarehouseDto,
+  ) {
     return this.warehouseService.update(id, updateWarehouseDto);
   }
 
@@ -31,6 +43,4 @@ export class WarehouseController {
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.warehouseService.delete(id);
   }
-
-
 }
