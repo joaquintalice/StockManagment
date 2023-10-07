@@ -31,6 +31,12 @@ export class ProductsController {
     return await this.productsService.getById(id);
   }
 
+  @Get('/name/:id')
+  async getByName(@Param('id') id: string) {
+    return await this.productsService.getByName(id);
+  }
+
+
   @Patch('/:id')
   async update(
     @Param('id', ParseIntPipe) id: number,

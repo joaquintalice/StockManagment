@@ -20,13 +20,13 @@ model Warehouse {
 }
 
 model Products {
-  id          Int      @id @default(autoincrement())
-  date        DateTime @default(now())
-  name        String
-  description String?
-  quantity    Float
-  buyPrice    Float
-  sellPrice   Float
+  id        Int      @id @default(autoincrement())
+  date      DateTime @default(now())
+  name      String   @unique
+  quantity  Float
+  buyPrice  Float
+  sellPrice Float
+  updatedAt DateTime @default(now()) @updatedAt
 
   Warehouse             Warehouse?           @relation(fields: [warehouseId], references: [id])
   warehouseId           Int?
@@ -46,6 +46,7 @@ model StockMovement {
 
 model StockMovementDetail {
   id              Int  @id @default(autoincrement())
+  prodId          Int
   stockMovementId Int?
 
   articles      Products[]
@@ -53,10 +54,18 @@ model StockMovementDetail {
 }
 
 model CashBox {
-  id          Int    @id @default(autoincrement())
-  name        String @unique
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
   amount      Float
-  description String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 
   StockMovement StockMovement[]
+}
+
+model CashboxHistory {
+  id    Int      @id @default(autoincrement())
+  date  DateTime @default(now())
+  total Float
 }

@@ -1,4 +1,5 @@
 import {
+  IsDate,
   IsDecimal,
   IsNotEmpty,
   IsNumber,
@@ -11,23 +12,20 @@ export default class CreateProductDto {
   @IsNotEmpty()
   name: string;
 
-  @IsString()
-  @IsOptional()
-  description?: string;
-
   @IsNumber()
   @IsNotEmpty()
   quantity: number;
 
-  @IsNumber() // Change to @IsNumber() if there's problems
+  @IsNumber()
   @IsNotEmpty()
   buyPrice: number;
 
-  @IsNumber() // Change to @IsNumber() if there's problems
+  @IsNumber()
   @IsNotEmpty()
   sellPrice: number;
 
   @IsNumber()
-  @IsNotEmpty()
-  warehouseId: number;
+  @IsOptional()
+  warehouseId?: number;
+
 }

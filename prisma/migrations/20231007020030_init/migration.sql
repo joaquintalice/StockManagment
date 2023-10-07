@@ -13,10 +13,10 @@ CREATE TABLE "Products" (
     "id" SERIAL NOT NULL,
     "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" TEXT NOT NULL,
-    "description" TEXT,
     "quantity" DOUBLE PRECISION NOT NULL,
     "buyPrice" DOUBLE PRECISION NOT NULL,
     "sellPrice" DOUBLE PRECISION NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "warehouseId" INTEGER,
     "stockMovementDetailId" INTEGER,
 
@@ -36,6 +36,7 @@ CREATE TABLE "StockMovement" (
 -- CreateTable
 CREATE TABLE "StockMovementDetail" (
     "id" SERIAL NOT NULL,
+    "prodId" INTEGER NOT NULL,
     "stockMovementId" INTEGER,
 
     CONSTRAINT "StockMovementDetail_pkey" PRIMARY KEY ("id")
@@ -46,10 +47,24 @@ CREATE TABLE "CashBox" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
-    "description" TEXT NOT NULL,
+    "description" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "CashBox_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateTable
+CREATE TABLE "CashboxHistory" (
+    "id" SERIAL NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "total" DOUBLE PRECISION NOT NULL,
+
+    CONSTRAINT "CashboxHistory_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Products_name_key" ON "Products"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "CashBox_name_key" ON "CashBox"("name");
