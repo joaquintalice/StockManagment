@@ -4,9 +4,9 @@ import { WarehouseModule } from './warehouse/warehouse.module';
 import { ProductsModule } from './products/products.module';
 import { PrismaService } from './db/prisma.service';
 import { StockmovementModule } from './stockmovement/stockmovement.module';
-import { SmdetailsModule } from './smdetails/smdetails.module';
 import { CashboxModule } from './cashbox/cashbox.module';
 import { CashboxhistoryModule } from './cashboxhistory/cashboxhistory.module';
+import { StockMovementDetailsModule } from './stockmovementdetail/stockmovement-details.module';
 
 
 @Module({
@@ -15,7 +15,7 @@ import { CashboxhistoryModule } from './cashboxhistory/cashboxhistory.module';
     WarehouseModule,
     ProductsModule,
     StockmovementModule,
-    SmdetailsModule,
+    StockMovementDetailsModule,
     CashboxModule,
     CashboxhistoryModule
   ],

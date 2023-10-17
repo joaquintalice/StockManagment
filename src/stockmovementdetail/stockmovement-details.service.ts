@@ -27,9 +27,20 @@ export class StockMovementDetailsService {
     }
   }
 
+  async createMany(createStockMovementDetailDto: CreateStockMovementDetailDto[]) {
+    try {
+      const smDetail = await this.prismaService.stockMovementDetail.createMany({
+        data: createStockMovementDetailDto
+      });
+      return smDetail
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async findAll() {
     try {
-      const smDetails = await this.prismaService.stockMovementDetail.findMany({ include: { StockMovement: true } });
+      const smDetails = await this.prismaService.stockMovementDetail.findMany({ include: { StockMovement: true, articles: true } });
       if (!smDetails || smDetails.length < 1) throw new NotFoundException(`StockMovementDetails not found`);
       return smDetails
     } catch (error) {

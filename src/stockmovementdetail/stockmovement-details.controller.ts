@@ -14,6 +14,11 @@ export class StockMovementDetailsController {
     return await this.stockMovementDetailsService.create(createStockMovementDetailDto);
   }
 
+  @Post('/create')
+  async createMany(@Body() createStockMovementDetailDto: CreateStockMovementDetailDto[]) {
+    return await this.stockMovementDetailsService.createMany(createStockMovementDetailDto);
+  }
+
   @Get()
   async getAll() {
     return await this.stockMovementDetailsService.findAll();
