@@ -23,6 +23,7 @@ model Products {
   id        Int      @id @default(autoincrement())
   date      DateTime @default(now())
   name      String   @unique
+  unit      String
   quantity  Float
   buyPrice  Float
   sellPrice Float
@@ -45,9 +46,13 @@ model StockMovement {
 }
 
 model StockMovementDetail {
-  id              Int  @id @default(autoincrement())
-  prodId          Int
+  id              Int    @id @default(autoincrement())
+  prodName        String
   stockMovementId Int?
+  unit            String
+  quantity        Float
+  buyPrice        Float
+  sellPrice       Float
 
   articles      Products[]
   StockMovement StockMovement? @relation(fields: [stockMovementId], references: [id])

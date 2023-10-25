@@ -11,11 +11,12 @@ export class StockMovementDetailsService {
 
   async create(createStockMovementDetailDto: CreateStockMovementDetailDto) {
     try {
-      const { buyPrice, prodId, quantity, sellPrice, stockMovementId } = createStockMovementDetailDto
+      const { buyPrice, prodName, quantity, sellPrice, stockMovementId, unit } = createStockMovementDetailDto
       const smDetail = await this.prismaService.stockMovementDetail.create({
         data: {
           buyPrice,
-          prodId,
+          unit,
+          prodName,
           quantity,
           sellPrice,
           stockMovementId,
@@ -65,13 +66,14 @@ export class StockMovementDetailsService {
 
   async update(id: number, updateStockMovementDetailDto: UpdateStockMovementDetailDto) {
     try {
-      const { buyPrice, prodId, quantity, sellPrice, stockMovementId } = updateStockMovementDetailDto;
+      const { buyPrice, prodName, quantity, sellPrice, stockMovementId, unit } = updateStockMovementDetailDto;
       const updatedSMDetails = await this.prismaService.stockMovementDetail.update({
         where: { id: id },
         data: {
           buyPrice,
           id,
-          prodId,
+          prodName,
+          unit,
           quantity,
           sellPrice,
           stockMovementId

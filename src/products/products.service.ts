@@ -3,6 +3,7 @@ import { PrismaService } from 'src/db/prisma.service';
 import CreateProductDto from './dto/createProduct.dto';
 import { UpdateProductDto } from './dto/updateProduct.dto';
 import { Prisma } from '@prisma/client';
+import { WarehouseMustBeCreatedFirstException } from 'src/common/exceptions/WarehouseMustBeCreatedFirstException';
 
 @Injectable()
 export class ProductsService {
@@ -10,10 +11,11 @@ export class ProductsService {
 
   async create(createProductsDto: CreateProductDto) {
     try {
-      const { name, sellPrice, buyPrice, quantity } = createProductsDto;
+      const { name, sellPrice, buyPrice, quantity, unit } = createProductsDto;
       const createdProducts = await this.prismaService.products.create({
         data: {
           name,
+          unit,
           quantity,
           buyPrice,
           sellPrice,
@@ -25,7 +27,8 @@ export class ProductsService {
     } catch (error) {
       console.error(error);
       switch (error instanceof Prisma.PrismaClientKnownRequestError) {
-        case error.code === 'P2002': throw new ConflictException(`Unique constraint violation.`)
+        case error.code === 'P2002': throw new ConflictException(`Unique constraint violation.`);
+        case error.code === 'P2003': throw new WarehouseMustBeCreatedFirstException();
       }
       throw new Error('Not handled error');
     }
@@ -77,13 +80,14 @@ export class ProductsService {
 
   async update(id: number, updateProductDto: UpdateProductDto) {
     try {
-      const { name, quantity, buyPrice, sellPrice, warehouseId } =
+      const { name, quantity, buyPrice, sellPrice, warehouseId, unit } =
         updateProductDto;
       const product = await this.prismaService.products.update({
         where: { id: id },
         data: {
           name,
           quantity,
+          unit,
           buyPrice,
           sellPrice,
           warehouseId,
@@ -94,6 +98,8 @@ export class ProductsService {
       console.log(error);
     }
   }
+
+
 
   async delete(id: number) {
     try {

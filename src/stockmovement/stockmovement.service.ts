@@ -28,7 +28,7 @@ export class StockmovementService {
 
   async findAll() {
     try {
-      const stockMovement = await this.prismaService.stockMovement.findMany();
+      const stockMovement = await this.prismaService.stockMovement.findMany({ include: { stockMovementDetail: true } });
       if (!stockMovement || stockMovement.length < 1) throw new NotFoundException(`StockMovement not found`);
       return stockMovement
     } catch (error) {

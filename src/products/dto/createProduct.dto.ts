@@ -16,6 +16,10 @@ export default class CreateProductDto {
   @IsNotEmpty()
   quantity: number;
 
+  @IsString()
+  @IsNotEmpty()
+  unit: string
+
   @IsNumber()
   @IsNotEmpty()
   buyPrice: number;
