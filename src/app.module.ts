@@ -7,6 +7,8 @@ import { StockmovementModule } from './stockmovement/stockmovement.module';
 import { CashboxModule } from './cashbox/cashbox.module';
 import { CashboxhistoryModule } from './cashboxhistory/cashboxhistory.module';
 import { StockMovementDetailsModule } from './stockmovementdetail/stockmovement-details.module';
+import { CommonModule } from './common/common.module';
+
 
 
 @Module({
@@ -17,7 +19,8 @@ import { StockMovementDetailsModule } from './stockmovementdetail/stockmovement-
     StockmovementModule,
     StockMovementDetailsModule,
     CashboxModule,
-    CashboxhistoryModule
+    CashboxhistoryModule,
+    CommonModule
   ],
   controllers: [],
   providers: [
