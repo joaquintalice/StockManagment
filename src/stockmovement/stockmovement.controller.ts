@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { StockmovementService } from './stockmovement.service';
 import CreateStockmovementDto from './dto/create-stockmovement.dto';
 import { UpdateStockmovementDto } from './dto/update-stockmovement.dto';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 @Controller('stockmovement')
 export class StockmovementController {
@@ -14,8 +15,8 @@ export class StockmovementController {
   }
 
   @Get()
-  async findAll() {
-    return await this.stockmovementService.findAll();
+  async findAll(@Query() paginationDto: PaginationDto) {
+    return await this.stockmovementService.findAll(paginationDto);
   }
 
   @Get(':id')
