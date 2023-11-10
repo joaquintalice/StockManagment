@@ -3,6 +3,7 @@ import CreateStockmovementDto from './dto/create-stockmovement.dto';
 import { UpdateStockmovementDto } from './dto/update-stockmovement.dto';
 import { PrismaService } from 'src/db/prisma.service';
 import { Prisma } from '@prisma/client';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 @Injectable()
 export class StockmovementService {
@@ -26,9 +27,18 @@ export class StockmovementService {
     }
   }
 
-  async findAll() {
+  async findAll(paginationDto: PaginationDto) {
     try {
-      const stockMovement = await this.prismaService.stockMovement.findMany({ include: { stockMovementDetail: true } });
+      const { limit = 10, offset = 0 } = paginationDto
+      const stockMovement = await this.prismaService.stockMovement.findMany({
+        skip: offset,
+        take: limit,
+        include: { stockMovementDetail: true },
+        orderBy: {
+          date: 'desc'
+        }
+      }
+      );
       if (!stockMovement || stockMovement.length < 1) throw new NotFoundException(`StockMovement not found`);
       return stockMovement
     } catch (error) {
