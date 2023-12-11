@@ -29,18 +29,27 @@ export class StockmovementService {
 
   async findAll(paginationDto: PaginationDto) {
     try {
+
       const { limit = 10, offset = 0 } = paginationDto
+
+      const totalElements = await this.prismaService.stockMovement.count();
+
       const stockMovement = await this.prismaService.stockMovement.findMany({
+        include: { stockMovementDetail: true },
         skip: offset,
         take: limit,
-        include: { stockMovementDetail: true },
         orderBy: {
           date: 'desc'
-        }
+        },
       }
       );
+
       if (!stockMovement || stockMovement.length < 1) throw new NotFoundException(`StockMovement not found`);
-      return stockMovement
+
+      return {
+        stockMovement,
+        totalElements
+      }
     } catch (error) {
       console.log(error)
       switch (error instanceof Prisma.PrismaClientKnownRequestError) {
